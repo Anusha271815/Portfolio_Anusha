@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -39,8 +39,34 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  useEffect(() => {
+    const navbar = document.getElementById("navbar");
+  
+    const handleScroll = () => {
+      if (window.scrollY > 1) {
+        setNavBg("#fff");
+      } else {
+        setNavBg("transparent");
+      }
+    };
+    
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
+
   return (
-    <AppBar position="static" color="transparent" elevation={0} sx={{ backgroundColor: "transparent" }}>
+    <AppBar
+    id="navbar"
+    position="fixed"
+    color="transparent"
+    elevation={0}
+    sx={{ transition: "0.3s ease", backgroundColor: "rgba(255, 255, 255, 0.25)" ,
+      boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+    }}
+  >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
